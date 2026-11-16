@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+mkdir ./static
+mv ./*.js ./static/
+mv ./*.css ./static/
+mv ./*.html ./static/
 # install.sh - Install the home dashboard backend (SMS poller + LLM worker + web UI
 # + Ollama) with hardened systemd units on Fedora (45) or a Debian-based system
 # (Debian 12+/Raspberry Pi OS, Ubuntu 22.04+, Linux Mint, ...).
