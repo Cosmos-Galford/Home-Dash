@@ -1,0 +1,119 @@
+/* Themes. Chosen in Customize; stored as <html data-theme="...">. The default theme lives in style.css. */
+
+/* ---- Fall: warm browns, burnt orange, harvest gold ---- */
+:root[data-theme="fall"] {
+  --bg: #1f1108; --panel: #3a200f; --panel-2: #4d2b14; --text: #f6e6cf; --muted: #c9a37a;
+  --accent: #ee8a2e; --high: #d9482b; --low: #9b7a58; --warn: #f2c14e; --ok: #9bb84a;
+  --sel: #7a3f14; --line: #5a361c; --field-line: #6b4424; --toast: #5a361c; --switch-off: #6b4a2c;
+  --on-accent: #2a1204; --radius: 16px;
+  --font: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --panel-border: 1px solid #6b4424;
+}
+:root[data-theme="fall"] body { background: radial-gradient(120% 90% at 20% 0%, #3b1f0c 0%, #1f1108 60%); }
+
+/* ---- Barbie: hot pink, bubblegum, glossy ---- */
+:root[data-theme="barbie"] {
+  --bg: #ffc2e1; --panel: #fff0f8; --panel-2: #ffd9ec; --text: #5a0a38; --muted: #a8467c;
+  --accent: #e0218a; --high: #d1004f; --low: #b98aa3; --warn: #ff9f1c; --ok: #12a37f;
+  --sel: #ffb3da; --line: #f7c4de; --field-line: #f0a8cd; --toast: #ffe0f0; --switch-off: #e9b6d1;
+  --on-accent: #ffffff; --radius: 24px; --scheme: light; --time-weight: 700;
+  --font: "Trebuchet MS", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --panel-border: 3px solid #ff77bd; --panel-shadow: 0 6px 0 #ff77bd55;
+}
+:root[data-theme="barbie"] body { background: linear-gradient(160deg, #ffb6dc 0%, #ffd9ee 55%, #ffc2e1 100%); }
+:root[data-theme="barbie"] .chip.warn { color: #3b1a00; }
+:root[data-theme="barbie"] .chip.ok { color: #ffffff; }
+:root[data-theme="barbie"] .chip.danger { background: #ffd0dc; color: #a00036; }
+:root[data-theme="barbie"] .chip { box-shadow: 0 2px 0 #ff77bd66; }
+:root[data-theme="barbie"] .modal::backdrop { background: #5a0a3866; }
+:root[data-theme="barbie"] .day.other { opacity: .5; }
+
+/* ---- Smoke Black Aero: smoked-glass panels, glossy blue glow (Windows Aero feel) ---- */
+:root[data-theme="aero"] {
+  --bg: #05070a; --panel: rgba(30, 38, 50, .55); --panel-2: rgba(255, 255, 255, .08); --text: #eaf4ff; --muted: #94a8bd;
+  --accent: #7fd0ff; --high: #ff6f7d; --low: #78889a; --warn: #ffc65c; --ok: #5be0a0;
+  --sel: rgba(127, 208, 255, .28); --line: rgba(255, 255, 255, .12); --field-line: rgba(255, 255, 255, .2);
+  --toast: rgba(30, 38, 50, .92); --switch-off: #455062; --on-accent: #04121c; --radius: 12px;
+  --font: "Segoe UI", "Frutiger", "Helvetica Neue", system-ui, sans-serif;
+  --panel-border: 1px solid rgba(255, 255, 255, .22);
+  --panel-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), inset 0 0 40px rgba(127, 208, 255, .05), 0 8px 28px rgba(0, 0, 0, .6);
+}
+:root[data-theme="aero"] body {
+  background: radial-gradient(70% 60% at 25% 10%, #16324a 0%, transparent 70%),
+              radial-gradient(60% 50% at 85% 90%, #0d2538 0%, transparent 70%), #05070a;
+  background-attachment: fixed;
+}
+:root[data-theme="aero"] .panel { backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3); }
+:root[data-theme="aero"] .panel::before { content: ""; position: absolute; inset: 0 0 55% 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, 0)); }
+:root[data-theme="aero"] .chip, :root[data-theme="aero"] .nav { border: 1px solid rgba(255, 255, 255, .2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .05)); }
+:root[data-theme="aero"] .chip.active, :root[data-theme="aero"] .chip.ok, :root[data-theme="aero"] .chip.warn {
+  background: linear-gradient(180deg, #b4e6ff, var(--accent) 50%, #4aa8dc); }
+:root[data-theme="aero"] .chip.ok { background: linear-gradient(180deg, #a6f5cc, var(--ok) 50%, #2fae74); }
+:root[data-theme="aero"] .chip.warn { background: linear-gradient(180deg, #ffe3a6, var(--warn) 50%, #d99a22); }
+:root[data-theme="aero"] .modal { background: rgba(18, 24, 33, .94); border: 1px solid rgba(255, 255, 255, .2); }
+:root[data-theme="aero"] .item, :root[data-theme="aero"] .day { border-top: 1px solid rgba(255, 255, 255, .1); }
+:root[data-theme="aero"] .time { text-shadow: 0 0 24px rgba(127, 208, 255, .45); }
+
+/* ---- Swiss: white, black type, one red, hard grid, Helvetica ---- */
+:root[data-theme="swiss"] {
+  --bg: #ffffff; --panel: #ffffff; --panel-2: #f1f1f1; --text: #111111; --muted: #6b6b6b;
+  --accent: #e30613; --high: #e30613; --low: #9a9a9a; --warn: #111111; --ok: #111111;
+  --sel: #111111; --line: #111111; --field-line: #111111; --toast: #111111; --switch-off: #bdbdbd;
+  --on-accent: #ffffff; --radius: 0px; --scheme: light; --time-weight: 700;
+  --font: "Helvetica Neue", Helvetica, Arial, "Nimbus Sans", sans-serif;
+  --panel-border: 2px solid #111;
+}
+:root[data-theme="swiss"] h2 { text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; }
+:root[data-theme="swiss"] .time { letter-spacing: -.04em; }
+:root[data-theme="swiss"] .chip, :root[data-theme="swiss"] .mini, :root[data-theme="swiss"] .nav, :root[data-theme="swiss"] .key,
+:root[data-theme="swiss"] .item, :root[data-theme="swiss"] .day, :root[data-theme="swiss"] .quote, :root[data-theme="swiss"] .field input,
+:root[data-theme="swiss"] .theme-card, :root[data-theme="swiss"] .theme-sw { border-radius: 0; }
+:root[data-theme="swiss"] .chip, :root[data-theme="swiss"] .nav { border: 2px solid #111; background: #fff; }
+:root[data-theme="swiss"] .chip.active, :root[data-theme="swiss"] .chip.ok { background: #111; color: #fff; }
+:root[data-theme="swiss"] .chip.warn { background: var(--accent); color: #fff; }
+:root[data-theme="swiss"] .chip.danger { background: #fff; color: var(--accent); border-color: var(--accent); }
+:root[data-theme="swiss"] .item { border-left-width: 6px; }
+:root[data-theme="swiss"] .day.selected { color: #fff; }
+:root[data-theme="swiss"] .day.today { outline-color: var(--accent); outline-width: 3px; }
+:root[data-theme="swiss"] .dot { background: #111; }
+:root[data-theme="swiss"] .dot.high { background: var(--accent); }
+:root[data-theme="swiss"] .day.selected .dot { background: #fff; }
+:root[data-theme="swiss"] .switch::after { border-radius: 0; }
+:root[data-theme="swiss"] .switch { border-radius: 0; }
+:root[data-theme="swiss"] .toast { color: #fff; border-radius: 0; }
+:root[data-theme="swiss"] .modal::backdrop { background: #fffd; }
+:root[data-theme="swiss"] .modal { border: 3px solid #111; }
+:root[data-theme="swiss"] .status.online { background: #111; }
+:root[data-theme="swiss"] .edit-bar { color: #fff; }
+
+/* ---- Cyberpunk: black-violet, neon cyan + magenta, mono type, glow ---- */
+:root[data-theme="cyberpunk"] {
+  --bg: #0a0212; --panel: #12041f; --panel-2: #1e0834; --text: #e8f9ff; --muted: #9a7fc0;
+  --accent: #00f0ff; --high: #ff2a6d; --low: #6a5a8a; --warn: #fcee0a; --ok: #39ff88;
+  --sel: #3a0a5e; --line: #3a1260; --field-line: #5b1f9a; --toast: #1e0834; --switch-off: #3a2a58;
+  --on-accent: #02121a; --radius: 4px; --time-weight: 500;
+  --font: "Share Tech Mono", "JetBrains Mono", "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+  --panel-border: 1px solid #00f0ff88;
+  --panel-shadow: 0 0 14px #00f0ff33, inset 0 0 22px #ff2a6d14;
+}
+:root[data-theme="cyberpunk"] body {
+  background: linear-gradient(transparent 94%, #00f0ff10 94%) 0 0 / 100% 36px,
+              linear-gradient(90deg, transparent 94%, #ff2a6d0f 94%) 0 0 / 36px 100%, #0a0212;
+}
+:root[data-theme="cyberpunk"] h2 { text-transform: uppercase; letter-spacing: .16em; color: var(--accent); text-shadow: 0 0 8px #00f0ff88; }
+:root[data-theme="cyberpunk"] .time { color: var(--accent); text-shadow: 0 0 6px #00f0ff, 0 0 24px #00f0ff88, 3px 0 0 #ff2a6d55; }
+:root[data-theme="cyberpunk"] .chip, :root[data-theme="cyberpunk"] .nav, :root[data-theme="cyberpunk"] .mini {
+  border: 1px solid #ff2a6d; color: #ff9ec0; background: #1e0834; border-radius: 4px; text-transform: uppercase; letter-spacing: .06em; }
+:root[data-theme="cyberpunk"] .chip.active, :root[data-theme="cyberpunk"] .chip.ok, :root[data-theme="cyberpunk"] .chip.warn {
+  box-shadow: 0 0 14px currentColor; border-color: transparent; }
+:root[data-theme="cyberpunk"] .chip.active { background: var(--accent); color: #02121a; }
+:root[data-theme="cyberpunk"] .chip.warn { background: var(--warn); color: #1a1600; }
+:root[data-theme="cyberpunk"] .chip.ok { background: var(--ok); color: #02200e; }
+:root[data-theme="cyberpunk"] .chip.danger { color: var(--high); border-color: var(--high); }
+:root[data-theme="cyberpunk"] .day.today { outline-color: #ff2a6d; box-shadow: 0 0 10px #ff2a6d88; }
+:root[data-theme="cyberpunk"] .item { border-left-width: 3px; box-shadow: inset 0 0 0 1px #3a1260; }
+:root[data-theme="cyberpunk"] .dot { box-shadow: 0 0 6px currentColor; }
+:root[data-theme="cyberpunk"] .modal { border: 1px solid var(--accent); box-shadow: 0 0 30px #00f0ff55; }
+:root[data-theme="cyberpunk"] .switch.on { box-shadow: 0 0 10px var(--ok); }

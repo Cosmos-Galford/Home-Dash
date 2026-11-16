@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/themes.css">
+  <script>try{var t=localStorage.getItem("dash.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+  <main class="app" id="canvas">
+    <header class="widget clock" data-w="clock" data-label="Clock">
+      <div id="time" class="time"></div>
+      <div class="date-row"><span id="date"></span><span id="status" class="status" title="Connection"></span></div>
+    </header>
+
+    <div class="widget toolbar-w" data-w="toolbar" data-label="Buttons">
+      <div class="toolbar">
+        <button id="add-btn" class="chip" type="button">+ Add</button>
+        <button id="settings-btn" class="chip" type="button">Settings</button>
+        <button id="custom-btn" class="chip" type="button">Customize</button>
+        <button id="lock-btn" class="chip" type="button" hidden>Lock</button>
+      </div>
+    </div>
+
+    <div class="widget panel alarms" id="alarms-panel" data-w="alarms" data-label="Alarms" hidden>
+      <div class="panel-head"><h2>Alarms</h2></div>
+      <ul id="alarms" class="list compact"></ul>
+    </div>
+
+    <div class="widget panel cal" data-w="cal" data-label="Calendar">
+      <div class="cal-head">
+        <button id="prev" class="nav" aria-label="Previous month">&#8249;</button>
+        <h2 id="month"></h2>
+        <button id="next" class="nav" aria-label="Next month">&#8250;</button>
+      </div>
+      <div id="dow" class="grid dow"></div>
+      <div id="days" class="grid days"></div>
+    </div>
+
+    <div class="widget panel agenda" data-w="agenda" data-label="Coming up">
+      <div class="panel-head">
+        <h2 id="agenda-title">Coming up</h2>
+        <button id="show-all" class="chip" hidden>Show all</button>
+      </div>
+      <ul id="agenda" class="list"></ul>
+    </div>
+
+    <div class="widget panel reminders" data-w="reminders" data-label="Reminders">
+      <div class="panel-head">
+        <h2>Reminders</h2>
+        <button id="review-btn" class="chip warn" hidden></button>
+      </div>
+      <ul id="reminders" class="list"></ul>
+    </div>
+
+    <div class="widget panel texts" id="texts-panel" data-w="texts" data-label="Recent texts" hidden>
+      <div class="panel-head">
+        <h2>Recent texts</h2>
+        <button id="texts-toggle" class="chip" type="button">Show</button>
+      </div>
+      <ul id="texts" class="list"></ul>
+    </div>
+  </main>
+
+  <div id="edit-bar" class="edit-bar" hidden>
+    <span>Drag a box to move it, drag its corner to resize.</span>
+    <button id="edit-reset" class="chip" type="button">Reset</button>
+    <button id="edit-done" class="chip ok" type="button">Done</button>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <dialog id="custom" class="modal">
+    <h2>Customize</h2>
+    <section class="set-group">
+      <h3>Theme</h3>
+      <div id="theme-grid" class="theme-grid"></div>
+    </section>
+    <section class="set-group">
+      <h3>Layout</h3>
+      <div class="set-row"><span>Move and resize the calendar, reminders, clock and more</span>
+        <button id="layout-edit" class="chip" type="button">Edit layout</button></div>
+      <div class="set-row"><span>Put everything back where it started</span>
+        <button id="layout-reset" class="chip danger" type="button">Reset layout</button></div>
+    </section>
+    <button id="custom-close" class="chip" type="button">Done</button>
+  </dialog>
+
+  <dialog id="review" class="modal">
+    <h2>Needs review</h2>
+    <p class="muted">The assistant wasn&#8217;t sure about these. Keep what looks right, delete the rest.</p>
+    <ul id="review-list" class="list"></ul>
+    <button id="review-close" class="chip">Close</button>
+  </dialog>
+
+  <dialog id="add" class="modal">
+    <h2>Add</h2>
+    <div class="seg">
+      <button id="tab-reminder" class="chip active" type="button">Reminder</button>
+      <button id="tab-alarm" class="chip" type="button">Alarm</button>
+    </div>
+    <label class="field">Label
+      <input id="add-label" type="text" maxlength="80" autocomplete="off" placeholder="e.g. Call the plumber">
+    </label>
+    <div id="add-reminder-fields">
+      <label class="field">Due date (optional)<input id="add-due" type="date"></label>
+      <label class="field">Note (optional)<input id="add-note" type="text" maxlength="240" autocomplete="off"></label>
+    </div>
+    <div id="add-alarm-fields" hidden>
+      <label class="field">Date<input id="add-date" type="date"></label>
+      <label class="field">Time<input id="add-time" type="time"></label>
+    </div>
+    <div id="add-error" class="form-error" role="alert"></div>
+    <div class="actions">
+      <button id="add-save" class="chip ok" type="button">Save</button>
+      <button id="add-cancel" class="chip" type="button">Cancel</button>
+    </div>
+  </dialog>
+
+  <dialog id="reply" class="modal">
+    <h2 id="reply-to">Reply</h2>
+    <p id="reply-orig" class="quote"></p>
+    <div id="reply-quick" class="quick"></div>
+    <label class="field">Your reply
+      <input id="reply-text" type="text" maxlength="300" autocomplete="off">
+    </label>
+    <div id="reply-error" class="form-error" role="alert"></div>
+    <div class="actions">
+      <button id="reply-send" class="chip ok" type="button">Send</button>
+      <button id="reply-cancel" class="chip" type="button">Cancel</button>
+    </div>
+  </dialog>
+
+  <dialog id="link-confirm" class="modal">
+    <h2>Open this link?</h2>
+    <p class="muted small">Nothing from this link has been loaded yet. Links in texts are a common way to steal passwords,
+      so only open it if you were expecting it. It opens in a new window; close that window to come back here.</p>
+    <div id="link-host" class="link-host"></div>
+    <p id="link-url" class="quote"></p>
+    <ul id="link-warn" class="warn-list"></ul>
+    <div id="link-msg" class="form-error" role="status"></div>
+    <div class="actions">
+      <button id="link-open" class="chip warn" type="button">Open</button>
+      <button id="link-copy" class="chip" type="button">Copy link</button>
+      <button id="link-cancel" class="chip ok" type="button">Cancel</button>
+    </div>
+  </dialog>
+
+  <dialog id="settings" class="modal">
+    <h2>Settings</h2>
+    <section class="set-group">
+      <h3>Privacy</h3>
+      <div class="set-row"><span>PIN <span id="pin-state" class="muted"></span></span>
+        <span class="row-actions">
+          <button id="pin-set" class="chip" type="button"></button>
+          <button id="pin-remove" class="chip danger" type="button" hidden>Remove</button>
+        </span></div>
+      <div class="set-row"><span>Ask for the PIN when the dashboard opens</span>
+        <button id="sw-lock" class="switch" role="switch" aria-checked="false" type="button"></button></div>
+      <div class="set-row"><span>Lock automatically after</span>
+        <span class="stepper"><button id="idle-dn" class="mini" type="button">&minus;</button><span id="idle-val"></span><button id="idle-up" class="mini" type="button">+</button></span></div>
+      <div class="set-row"><span>Show recent texts</span>
+        <button id="sw-texts" class="switch" role="switch" aria-checked="false" type="button"></button></div>
+      <p id="texts-hint" class="muted small"></p>
+    </section>
+    <section class="set-group">
+      <h3>Alarms</h3>
+      <div class="set-row"><span>Alarm before every appointment</span>
+        <button id="sw-auto" class="switch" role="switch" aria-checked="false" type="button"></button></div>
+      <div class="set-row"><span>Default alarm time</span>
+        <span class="stepper"><button id="lead-dn" class="mini" type="button">&minus;15</button><span id="lead-val"></span><button id="lead-up" class="mini" type="button">+15</button></span></div>
+      <div class="set-row"><span>Snooze</span>
+        <span class="stepper"><button id="snooze-dn" class="mini" type="button">&minus;</button><span id="snooze-val"></span><button id="snooze-up" class="mini" type="button">+</button></span></div>
+      <div class="set-row"><span>Alarm flash</span>
+        <span class="stepper"><button id="flash-dn" class="mini" type="button">&minus;</button><span id="flash-val"></span><button id="flash-up" class="mini" type="button">+</button></span></div>
+      <p class="muted small">Strong flashes the whole screen red and white about once a second. Choose Gentle or Off if flashing bothers you.</p>
+      <div class="set-row"><span>See and hear an alarm</span><button id="test-sound" class="chip" type="button">Preview</button></div>
+    </section>
+    <div id="settings-error" class="form-error" role="alert"></div>
+    <button id="settings-close" class="chip" type="button">Done</button>
+  </dialog>
+
+  <dialog id="pad" class="overlay">
+    <div class="pad-card">
+      <h2 id="pad-title">Enter PIN</h2>
+      <div id="pad-dots" class="pad-dots" aria-hidden="true"></div>
+      <div id="pad-msg" class="pad-msg" role="alert"></div>
+      <div id="pad-grid" class="pad-grid"></div>
+      <button id="pad-cancel" class="chip" type="button">Cancel</button>
+    </div>
+  </dialog>
+
+  <dialog id="ring" class="overlay ring">
+    <div class="ring-card">
+      <div class="ring-kicker">Alarm</div>
+      <div id="ring-label" class="ring-label"></div>
+      <div id="ring-sub" class="ring-sub"></div>
+      <div id="ring-hint" class="ring-hint" hidden>Tap anywhere to turn the alarm sound on</div>
+      <div class="actions">
+        <button id="ring-snooze" class="chip warn" type="button"></button>
+        <button id="ring-dismiss" class="chip ok" type="button">Dismiss</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/static/customize.js"></script>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
